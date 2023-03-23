@@ -1,7 +1,7 @@
 #include <iostream>
 #include<cstdlib> //Trabaja con números random
 using namespace std;
-
+int AskNumber(string question, int high, int low = 1);
 int main()
 {
 
@@ -11,6 +11,7 @@ int main()
     int secretNumber = (randomNumber % 100) + 1;
     int guess;
     int tries = 0;
+    int veryClose;
 
     cout << "GUESS MY NUMBER" << endl;
     cout << "Adivina el número en el menor número de intentos posible." << endl;
@@ -19,10 +20,15 @@ int main()
     cout << secretNumber;
     do
     {
-        cout << "\nEnter a guess (1-100):" << endl;
-        cin >> guess;
+        guess = AskNumber("\nAdivina un numero", 300);
         tries++;
 
+        veryClose = secretNumber - guess;
+
+        if (veryClose <= 5 && veryClose >= -5 && veryClose != 0)
+        {
+            cout << "Muy cerca!!\n";
+        }
         if (guess > secretNumber) {
             cout << "Muy Alto\n\n";
         }
@@ -34,4 +40,16 @@ int main()
 
         }
     } while (guess != secretNumber);
+}
+
+int AskNumber(string question, int high, int low) {
+    int Number = 0;
+
+    do {
+        cout << question << "entre " << low << " y " << high << endl;
+        cin >> Number;
+
+    } while (Number > high || Number < low);
+
+    return Number;
 }
